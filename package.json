@@ -99,6 +99,12 @@
     "@ant-design/colors": "^3.1.0",
     "@ant-design/tools": "^8.0.0",
     "@packtracker/webpack-plugin": "^2.0.1",
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.6.0",
+    "@pika/plugin-build-types": "^0.6.0",
+    "@pika/plugin-build-web": "^0.6.0",
+    "@pika/plugin-ts-standard-pkg": "^0.6.0",
+    "@pika/types": "^0.6.0",
     "@sentry/browser": "^5.4.0",
     "@types/classnames": "^2.2.8",
     "@types/prop-types": "^15.7.1",
@@ -241,5 +247,31 @@
     "Firefox ESR",
     "> 1%",
     "ie >= 9"
-  ]
+  ],
+  "@pika/pack": {
+    "pipeline": [
+      "cp -rf components src",
+      [
+        "@pika/plugin-ts-standard-pkg",
+        {
+          "exclude": [
+            "__tests__/**/*",
+            "**/*.{js,jsx}",
+            "site",
+            "components",
+            "tests",
+            "docs",
+            "scripts",
+            "typings"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ]  
+    ]
+  }
 }
